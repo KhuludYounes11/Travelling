@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     use HasFactory;
+    
     public function bookings():object
     {
         return $this->hasMany(Booking::class);

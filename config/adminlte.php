@@ -351,11 +351,11 @@ return [
                 ],
                 [
                     'text'    => 'Tickets',
-                    'url'     => '#',
+                    'route'     => 'ticket.index',
                 ],
                 [
                     'text'    => 'Hotels',
-                    'url'     => '#',
+                    'route'     => 'hotel.index',
                 ],
                   
                     
