@@ -12,6 +12,10 @@ class City extends Model
         'name',
         'country'
     ];
+    protected $casts = [
+        'name' => 'string',
+        'country' => 'string',
+    ];
     public function hotels():object
     {
         return $this->hasMany(Hotel::class);

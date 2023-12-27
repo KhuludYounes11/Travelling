@@ -14,6 +14,12 @@ class Ticket extends Model
         'date_e',
         'date_s',
     ];
+    protected $casts = [
+        'company_id' => 'integer',
+        'city_id' => 'integer',
+        'date_s' => 'datetime',
+        'date_e' => 'datetime',
+    ];
     public function city():object
     {
         return $this->belongsTo(City::class);

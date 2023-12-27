@@ -13,6 +13,11 @@ class Hotel extends Model
         'phone',
         'city_id'
     ];
+    protected $casts = [
+        'name' => 'string',
+        'phone' => 'string',
+        'city_id' => 'integer',
+    ];
     public function bookings():object
     {
         return $this->hasMany(Booking::class);
