@@ -138,6 +138,20 @@ class HotelController extends Controller
            $hotel->update($data);
            return redirect()->route('hotel.index');
     }
+    public function search(Request $request)
+    {
+        if($request->table=='city')
+        {
+            $city=City::where('name',$request->search)->first();
+            $hotel=$city->hotels;
+            return view('hotel.search',['hotel'=>$hotel]);
+        }
+        else
+        {
+            $hotel=Hotel::where($request->table,$request->search)->get();
+            return view('hotel.search',['hotel'=>$hotel]);
+        }
+    }
 
     /**
      * Remove the specified resource from storage.

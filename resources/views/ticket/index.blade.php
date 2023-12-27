@@ -11,6 +11,18 @@
 
 <div class="container mt-3">
   <h2>Tickets</h2>
+  <div class="mb-3 mt-3">
+    <form method="post" action={{ route('ticket.search') }}> 
+  {{ csrf_field() }}
+    <label for="search">Search</label>
+    <input type="text" class="form-control" id="search" placeholder="Enter Name Hotel" name="search">
+    <select class="form-select" id="table" name="table">
+      <option display value="id" selected>ID</option>
+      <option  value="company" >Company</option>
+      <option  value="city" >city</option>
+    </select>
+    </form>
+  </div>
   <td> <a  href="{{route('ticket.create')}}" class="btn btn-light">ADD</a></td>      
   <table class="table table-striped">
     <thead>

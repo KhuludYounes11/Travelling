@@ -148,6 +148,26 @@ class TicketController extends Controller
         }
 
     }
+    public function search(Request $request)
+    {
+        if($request->table=='city')
+        {
+            $city=City::where('name',$request->search)->first();
+            $ticket=Ticket::where('city_id',$city->id)->first();
+            return view('ticket.search',['ticket'=>$ticket]);
+        }
+        elseif ($request->table=='company') {
+            $company=Company::where('name',$request->search)->first();
+            $ticket=Ticket::where('company_id',$company->id)->first();
+            return view('ticket.search',['ticket'=>$ticket]);
+        }
+        else
+        {
+            $ticket=Ticket::where($request->table,$request->search)->first();
+            return view('ticket.search',['ticket'=>$ticket]);
+
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
