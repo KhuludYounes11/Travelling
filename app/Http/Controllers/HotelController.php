@@ -17,8 +17,8 @@ class HotelController extends Controller
      */
     public function index()
     {
-        $hotel=Hotel::all();
-        return view('hotel/index',['hotel' => $hotel]);
+        $hotel = Hotel::all();
+        return view('hotel/index', ['hotel' => $hotel]);
     }
 
     /**
@@ -28,8 +28,8 @@ class HotelController extends Controller
      */
     public function create()
     {
-        $city=City::all();
-        return view('hotel/create',['city'=>$city]);
+        $city = City::all();
+        return view('hotel/create', ['city' => $city]);
     }
 
     /**
@@ -40,19 +40,17 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
-        $message=[
-            'city_id.exists'=>'city_id  not found',
+        $message = [
+            'city_id.exists' => 'city_id  not found',
         ];
-        $validator=Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'phone' => 'required|unique:hotels,phone',
             'city_id' => 'required|exists:cities,id|integer',
-        ],$message);
+        ], $message);
         if ($validator->fails()) {
-            return( $validator->errors());
-        }
-        else
-        {
+            return ($validator->errors());
+        } else {
             Hotel::create([
                 'name' => $request->name,
                 'city_id' => $request->city_id,
@@ -70,17 +68,17 @@ class HotelController extends Controller
      */
     public function show($id)
     {
-        $message=['id.exists' => 'id not exists'];
-        $validator=Validator::make(['id' => $id],
-        ['id' => 'required|integer|exists:hotels,id'],$message);
-        if ($validator->fails())
-        {
+        $message = ['id.exists' => 'id not exists'];
+        $validator = Validator::make(
+            ['id' => $id],
+            ['id' => 'required|integer|exists:hotels,id'],
+            $message
+        );
+        if ($validator->fails()) {
             return $validator->errors();
-        }
-        else
-        {   
-            $hotel=Hotel::find($id);
-            return view('hotel/show',['hotel'=>$hotel]);
+        } else {
+            $hotel = Hotel::find($id);
+            return view('hotel/show', ['hotel' => $hotel]);
         }
     }
 
@@ -92,18 +90,20 @@ class HotelController extends Controller
      */
     public function edit($id)
     {
-        $message=['id.exists' => 'id not exists'];
-        $validator=Validator::make(['id' => $id],
-        ['id' => 'required|integer|exists:hotels,id'],$message);
-        if ($validator->fails())
-        {
+        $message = ['id.exists' => 'id not exists'];
+        $validator = Validator::make(
+            ['id' => $id],
+            ['id' => 'required|integer|exists:hotels,id'],
+            $message
+        );
+        if ($validator->fails()) {
             return $validator->errors();
         }
-        $hotel=Hotel::find($id);
-        $city=City::all();
-        return view('hotel/edit',[
+        $hotel = Hotel::find($id);
+        $city = City::all();
+        return view('hotel/edit', [
             'hotel' => $hotel,
-            'city'=>$city
+            'city' => $city
         ]);
     }
 
@@ -114,42 +114,61 @@ class HotelController extends Controller
      * @param  \App\Models\Hotel  $hotel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        $hotel=Hotel::find($id);
-        $message=[
-            'city_id.exists'=>'city_id  not found',
+        $hotel = Hotel::find($id);
+        $message = [
+            'city_id.exists' => 'city_id  not found',
         ];
-          $validator=Validator::make($request->all(),
-          [
-            'name' => 'required',
-            'phone' => ['required',Rule::unique('hotels','phone')->ignore($hotel->phone,'phone')],
-            'city_id' => 'required|exists:cities,id|integer',
-        ],$message);
-           if($validator->fails())
-           {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required',
+                'phone' => ['required', Rule::unique('hotels', 'phone')->ignore($hotel->phone, 'phone')],
+                'city_id' => 'required|exists:cities,id|integer',
+            ],
+            $message
+        );
+        if ($validator->fails()) {
             return $validator->errors();
-           }
-           $data=[
+        }
+        $data = [
             'name' => $request->name,
             'phone' => $request->phone,
             'city_id' => $request->city_id,
-           ];
-           $hotel->update($data);
-           return redirect()->route('hotel.index');
+        ];
+        $hotel->update($data);
+        return redirect()->route('hotel.index');
     }
     public function search(Request $request)
     {
-        if($request->table=='city')
-        {
-            $city=City::where('name',$request->search)->first();
-            $hotel=$city->hotels;
-            return view('hotel.search',['hotel'=>$hotel]);
-        }
-        else
-        {
-            $hotel=Hotel::where($request->table,$request->search)->get();
-            return view('hotel.search',['hotel'=>$hotel]);
+        if ($request->table == 'city') {
+            $message = ['search.exists' => 'the city not exists'];
+            $validator = Validator::make(
+                $request->all(),
+                ['search' => 'required|exists:cities,name'],
+                $message
+            );
+            if ($validator->fails()) {
+                return $validator->errors();
+            } else {
+                $city = City::where('name', $request->search)->first();
+                $hotel = $city->hotels;
+                return view('hotel.search', ['hotel' => $hotel]);
+            }
+        } else {
+            $message = ['search.exists' => 'not foumd'];
+            $validator = Validator::make(
+                $request->all(),
+                ['search' => ['required', Rule::exists('hotels', $request->table)]],
+                $message
+            );
+            if ($validator->fails()) {
+                return $validator->errors();
+            } else {
+                $hotel = Hotel::where($request->table, $request->search)->get();
+                return view('hotel.search', ['hotel' => $hotel]);
+            }
         }
     }
 
@@ -161,14 +180,16 @@ class HotelController extends Controller
      */
     public function destroy($id)
     {
-        $message=['id.exists' => 'id not exists'];
-        $validator=Validator::make(['id' => $id],
-        ['id' => 'required|integer|exists:hotels,id'],$message);
-        if ($validator->fails())
-        {
+        $message = ['id.exists' => 'id not exists'];
+        $validator = Validator::make(
+            ['id' => $id],
+            ['id' => 'required|integer|exists:hotels,id'],
+            $message
+        );
+        if ($validator->fails()) {
             return $validator->errors();
         }
-        Hotel::where('id',$id)->delete();
+        Hotel::where('id', $id)->delete();
         return redirect()->back();
     }
 }
