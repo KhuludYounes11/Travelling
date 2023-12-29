@@ -149,49 +149,18 @@ class TicketController extends Controller
     }
     public function search(Request $request)
     {
-        if ($request->table == 'city') {
-            $message = ['search.exists' => 'the city not exists'];
-            $validator = Validator::make(
-                $request->all(),
-                ['search' => 'required|exists:cities,name'],
-                $message
-            );
-            if ($validator->fails()) {
-                return $validator->errors();
-            } else {
 
-                $city = City::where('name', $request->search)->first();
-                $ticket = Ticket::where('city_id', $city->id)->first();
-                return view('ticket.search', ['ticket' => $ticket]);
-            }
-        } elseif ($request->table == 'company') {
-            $message = ['search.exists' => 'the company not exists'];
-            $validator = Validator::make(
-                $request->all(),
-                ['search' => 'required|exists:companies,name'],
-                $message
-            );
-            if ($validator->fails()) {
-                return $validator->errors();
-            } else {
-                $company = Company::where('name', $request->search)->first();
-                $ticket = Ticket::where('company_id', $company->id)->first();
-                return view('ticket.search', ['ticket' => $ticket]);
-            }
-        } else {
-            $message = ['search.exists' => 'the id not exists'];
-            $validator = Validator::make(
-                $request->all(),
-                ['search' => ['required', Rule::exists('tickets', $request->table)]],
-                $message
-            );
-            if ($validator->fails()) {
-                return $validator->errors();
-            } else {
-                $ticket = Ticket::where($request->table, $request->search)->first();
-                return view('ticket.search', ['ticket' => $ticket]);
-            }
-        }
+        $search = $request->search;
+        $ticket = Ticket::where(function ($query) use ($search) {
+            $query->where('id', 'like', "%$search%");
+        })
+            ->orwhereHas('city', function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%");
+            })
+            ->orwhereHas('company', function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%");
+            })->get();
+        return view('ticket.index', ['ticket' => $ticket]);
     }
 
     /**
@@ -205,7 +174,7 @@ class TicketController extends Controller
         $message = ['id.exists' => 'id not exists'];
         $validator = Validator::make(
             ['id' => $id],
-            ['id' => 'required|integer|exists:hotels,id'],
+            ['id' => 'required|integer|exists:tickets,id'],
             $message
         );
         if ($validator->fails()) {

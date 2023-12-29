@@ -335,11 +335,11 @@ return [
             'submenu' => [
                 [
                     'text' => 'Companies',
-                    'url'  => '#',
+                    'route'  => 'company.index',
                 ],
                 [
                     'text'    => 'Cities',
-                    'url'     => '#',
+                    'route'     => 'city.index',
                 ],
                 [
                     'text'    => 'Customers',

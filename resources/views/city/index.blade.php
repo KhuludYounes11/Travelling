@@ -10,40 +10,36 @@
 <body>
 
 <div class="container mt-3">
-  <h2>Tickets</h2>
-  {{ csrf_field() }}
+  <h2>City</h2>
   <div class="mb-3 mt-3">
-    <form class="form-inline my-2 my-lg-0" method='get' action="{{route('ticket.search')}}">
+    {{ csrf_field() }}
+    <form class="form-inline my-2 my-lg-0" method='get' action="{{route('city.search')}}">
       <input class="form-control" id="myInput" type="text" name="search" placeholder="Search..">
       <button class="btn btn primary" type='submit' >Search</button>
     </form>
   </div>
-  <td> <a  href="{{route('ticket.create')}}" class="btn btn-light">ADD</a></td>      
+  <td> <a  href="{{route('city.create')}}" class="btn btn-light">ADD</a></td>      
   <table class="table table-striped">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Company</th>
         <th>City</th>
-        <th>Date Start</th>
-        <th>Date End</th>
+        <th>Country</th>
         <th>Action</th>
         <th>Action</th>
         <th>Action</th>
       </tr>
     </thead>
-    @foreach($ticket as $ticket)
+    @foreach($city as $city)
     <tbody>
    
       <tr>
-        <td>{{$ticket->id}}</td>
-        <td>{{$ticket->company->name}}</td>
-        <td>{{$ticket->city->name}}</td>
-        <td>{{$ticket->date_s}}</td>
-        <td>{{$ticket->date_e}}</td>
-        <td> <a  href="{{route('ticket.show',[$ticket->id])}}" class="btn btn-danger">Show</a></td>
-        <td> <a  href="{{route('ticket.edit',[$ticket->id])}}" class="btn btn-success">Edit</a></td>
-        <td> <a  href="{{route('ticket.delete',[$ticket->id])}}" class="btn btn-secondary">Delete</a></td>
+        <td>{{$city->id}}</td>
+        <td>{{$city->name}}</td>
+        <td>{{$city->country}}</td>
+        <td> <a  href="{{route('city.show',[$city->id])}}" class="btn btn-danger">Show</a></td>
+        <td> <a  href="{{route('city.edit',[$city->id])}}" class="btn btn-success">Edit</a></td>
+        <td> <a  href="{{route('city.delete',[$city->id])}}" class="btn btn-secondary">Delete</a></td>
       </tr>
      
     </tbody>

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+
 
 class CityController extends Controller
 {
@@ -14,7 +17,8 @@ class CityController extends Controller
      */
     public function index()
     {
-        //
+        $city = City::all();
+        return view('city.index', ['city' => $city]);
     }
 
     /**
@@ -24,7 +28,7 @@ class CityController extends Controller
      */
     public function create()
     {
-        //
+        return view('city.create');
     }
 
     /**
@@ -35,7 +39,19 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'country' => 'required|string',
+        ]);
+        if ($validate->fails()) {
+            return ($validate->errors());
+        } else {
+            City::create([
+                'name' => $request->name,
+                'country' => $request->country,
+            ]);
+            return redirect()->route('city.index');
+        }
     }
 
     /**
@@ -44,9 +60,19 @@ class CityController extends Controller
      * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function show(City $city)
+    public function show($id)
     {
-        //
+        $message = ['id.exists' => 'id not exists'];
+        $validator = Validator::make(
+            ['id' => $id],
+            ['id' => 'required|integer|exists:cities,id'],
+            $message
+        );
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+        $city = City::find($id);
+        return view('city.show', ['city' => $city]);
     }
 
     /**
@@ -55,9 +81,20 @@ class CityController extends Controller
      * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function edit(City $city)
+    public function edit($id)
     {
-        //
+        $message = ['id.exists' => 'id not exists'];
+        $validator = Validator::make(
+            ['id' => $id],
+            ['id' => 'required|integer|exists:cities,id'],
+            $message
+        );
+        if ($validator->fails()) {
+            return $validator->errors();
+        } else {
+            $city = City::find($id);
+            return view('city/edit', ['city' => $city]);
+        }
     }
 
     /**
@@ -67,9 +104,32 @@ class CityController extends Controller
      * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, City $city)
+    public function update(Request $request, $id, City $city)
     {
-        //
+        $validate = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'country' => 'required|string',
+        ]);
+        if ($validate->fails()) {
+            return ($validate->errors());
+        } else {
+            $date = [
+                'name' => $request->name,
+                'country' => $request->country
+            ];
+            $city = City::find($id);
+            $city->update($date);
+            return redirect()->route('city.index');
+        }
+    }
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        $city = City::where(function ($query) use ($search) {
+            $query->where('name', 'like', "%$search%")
+                ->orwhere('country', 'like', "%$search%");
+        })->get();
+        return view('city.index', ['city' => $city]);
     }
 
     /**
@@ -78,8 +138,18 @@ class CityController extends Controller
      * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function destroy(City $city)
+    public function destroy($id, City $city)
     {
-        //
+        $message = ['id.exists' => 'id not exists'];
+        $validator = Validator::make(
+            ['id' => $id],
+            ['id' => 'required|integer|exists:cities,id'],
+            $message
+        );
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+        City::where('id', $id)->delete();
+        return redirect()->back();
     }
 }

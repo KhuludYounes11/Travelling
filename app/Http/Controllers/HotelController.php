@@ -45,7 +45,7 @@ class HotelController extends Controller
         ];
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'phone' => 'required|unique:hotels,phone',
+            'phone' => 'required|regex:/(0)[0-9]/|notregex:/[a-z]/|min:10|unique:hotels,phone',
             'city_id' => 'required|exists:cities,id|integer',
         ], $message);
         if ($validator->fails()) {
@@ -142,34 +142,15 @@ class HotelController extends Controller
     }
     public function search(Request $request)
     {
-        if ($request->table == 'city') {
-            $message = ['search.exists' => 'the city not exists'];
-            $validator = Validator::make(
-                $request->all(),
-                ['search' => 'required|exists:cities,name'],
-                $message
-            );
-            if ($validator->fails()) {
-                return $validator->errors();
-            } else {
-                $city = City::where('name', $request->search)->first();
-                $hotel = $city->hotels;
-                return view('hotel.search', ['hotel' => $hotel]);
-            }
-        } else {
-            $message = ['search.exists' => 'not foumd'];
-            $validator = Validator::make(
-                $request->all(),
-                ['search' => ['required', Rule::exists('hotels', $request->table)]],
-                $message
-            );
-            if ($validator->fails()) {
-                return $validator->errors();
-            } else {
-                $hotel = Hotel::where($request->table, $request->search)->get();
-                return view('hotel.search', ['hotel' => $hotel]);
-            }
-        }
+        $search = $request->search;
+        $hotel = Hotel::where(function ($query) use ($search) {
+            $query->where('name', 'like', "%$search%");
+        })
+            ->orwhere('phone', 'like', "%$search%")
+            ->orwhereHas('city', function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%");
+            })->get();
+        return view('hotel.index', ['hotel' => $hotel]);
     }
 
     /**

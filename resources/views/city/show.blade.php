@@ -10,10 +10,12 @@
 <body>
 
 <div class="container mt-3">
-  <h2>Show Hotel  </h2>
+  <h2>Show City</h2>
   <ul class="list-group">
-  <li class="list-group-item">Name is : {{$hotel->name}}</li>
-  <li class="list-group-item">Phone is : {{$hotel->phone}}</li>
-  <li class="list-group-item">City is : {{$hotel->city->name}}</li>
+  <li class="list-group-item">City is : {{$city->name}}</li>
+  <li class="list-group-item">Country is : {{$city->country}}</li>
+  <li class="list-group-item">
+  </li>
 </ul>
-<h3> <a href="{{route('hotel.index')}}"class=" btn btn-secondary">Back</a></h3></div>
+<br/>   
+<h3> <a href="{{route('city.index')}}"class=" btn btn-secondary">Back</a></h3></div>

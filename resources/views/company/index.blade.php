@@ -10,38 +10,35 @@
 <body>
 
 <div class="container mt-3">
-  <h2>Hotels</h2>
+  <h2>Company</h2>
   <div class="mb-3 mt-3">
-    {{ csrf_field() }}
-  <form class="form-inline my-2 my-lg-0" method='get' action="{{route('hotel.search')}}">
+  {{ csrf_field() }}
+  <form class="form-inline my-2 my-lg-0" method='get' action="{{route('company.search')}}">
     <input class="form-control" id="myInput" type="text" name="search" placeholder="Search..">
     <button class="btn btn primary" type='submit' >Search</button>
   </form>
-  </div>
-  <td> <a  href="{{route('hotel.create')}}" class="btn btn-light">ADD</a></td>      
+  <td> <a  href="{{route('company.create')}}" class="btn btn-light">ADD</a></td>      
   <table class="table table-striped">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Hotel</th>
+        <th>Name</th>
         <th>Phone</th>
-        <th>City</th>
         <th>Action</th>
         <th>Action</th>
         <th>Action</th>
       </tr>
     </thead>
-    @foreach($hotel as $hotel)
+    @foreach($company as $company)
     <tbody>
    
       <tr>
-        <td>{{$hotel->id}}</td>
-        <td>{{$hotel->name}}</td>
-        <td>{{$hotel->phone}}</td>
-        <td>{{$hotel->city->name}}</td>
-        <td> <a  href="{{route('hotel.show',[$hotel->id])}}" class="btn btn-danger">Show</a></td>
-        <td> <a  href="{{route('hotel.edit',[$hotel->id])}}" class="btn btn-success">Edit</a></td>
-        <td> <a  href="{{route('hotel.delete',[$hotel->id])}}" class="btn btn-secondary">Delete</a></td>
+        <td>{{$company->id}}</td>
+        <td>{{$company->name}}</td>
+        <td>{{$company->phone}}</td>
+        <td> <a  href="{{route('company.show',[$company->id])}}" class="btn btn-danger">Show</a></td>
+        <td> <a  href="{{route('company.edit',[$company->id])}}" class="btn btn-success">Edit</a></td>
+        <td> <a  href="{{route('company.delete',[$company->id])}}" class="btn btn-secondary">Delete</a></td>
       </tr>
      
     </tbody>
