@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'phone','gender',
@@ -19,6 +20,7 @@ class Customer extends Model
         'gender' => 'string',
         'email' => 'string'
     ];
+
     public function bookings():object
     {
         return $this->hasMany(Booking::class);

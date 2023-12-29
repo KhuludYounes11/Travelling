@@ -340,11 +340,11 @@ return [
             'submenu' => [
                 [
                     'text' => 'Companies',
-                    'url'  => '#',
+                    'route'  => 'company.index',
                 ],
                 [
                     'text'    => 'Cities',
-                    'url'     => '#',
+                    'route'     => 'city.index',
                 ],
                 [
                     'text'    => 'Customers',
@@ -356,11 +356,11 @@ return [
                 ],
                 [
                     'text'    => 'Tickets',
-                    'url'     => '#',
+                    'route'     => 'ticket.index',
                 ],
                 [
                     'text'    => 'Hotels',
-                    'url'     => '#',
+                    'route'     => 'hotel.index',
                 ],
                 [
                     'text'    => 'Ratings',
