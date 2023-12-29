@@ -8,13 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'country_id',
-        'company_id',
-        'city_id',
-        'date_e',
-        'date_s',
-    ];
+
     public function city():object
     {
         return $this->belongsTo(City::class);

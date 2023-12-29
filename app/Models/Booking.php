@@ -7,6 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
+    protected $fillable = [
+        'customer_id',
+        'ticket_id','hotel_id',
+        'date',
+    ];
+    protected $casts = [
+        'customer_id' => 'integer',
+        'hotel_id' => 'integer',
+        'ticket_id' => 'integer',
+        'date' => 'date'
+    ];
     use HasFactory;
     public function customer():object
     {
