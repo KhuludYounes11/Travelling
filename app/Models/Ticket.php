@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'company_id',
         'city_id',
@@ -20,6 +21,7 @@ class Ticket extends Model
         'date_s' => 'datetime',
         'date_e' => 'datetime',
     ];
+
     public function city():object
     {
         return $this->belongsTo(City::class);

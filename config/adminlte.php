@@ -313,7 +313,7 @@ return [
         ],
         [
             'text'        => 'pages',
-            'url'         => 'admin/pages',
+            'url'         => 'admin/page',
             'icon'        => 'far fa-fw fa-file',
             'label'       => 7,
             'label_color' => 'success',
@@ -321,12 +321,17 @@ return [
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
-            'url'  => 'admin/settings',
+           'route'  =>'user.show',
             'icon' => 'fas fa-fw fa-user',
-        ],
+        ], 
         [
             'text' => 'change_password',
-            'url'  => 'admin/settings',
+             'route'  => 'user.edit',
+            'icon' => 'fas fa-fw fa-lock',
+        ],
+        [
+            'text' => 'view',
+             'route'  => 'user.index',
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
@@ -343,11 +348,11 @@ return [
                 ],
                 [
                     'text'    => 'Customers',
-                    'url'     => '#',
+                    'route'     => 'customer.index',
                 ],
                 [
                     'text'    => 'Bookings',
-                    'url'     => '#',
+                    'route'     => 'booking.index',
                 ],
                 [
                     'text'    => 'Tickets',
@@ -356,6 +361,10 @@ return [
                 [
                     'text'    => 'Hotels',
                     'route'     => 'hotel.index',
+                ],
+                [
+                    'text'    => 'Ratings',
+                    'route'     => 'rating.index',
                 ],
                   
                     

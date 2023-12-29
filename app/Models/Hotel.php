@@ -26,5 +26,9 @@ class Hotel extends Model
     {
         return $this->belongsTo(City::class);
     }
+    public function ratings():object
+    {
+        return $this->hasMany(Rating::class);
+    }
 
 }
