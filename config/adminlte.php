@@ -339,6 +339,10 @@ return [
             'icon'    => 'fas fa-fw fa-share',
             'submenu' => [
                 [
+                    'text' => 'Users',
+                    'route' => 'user.index',
+                ],
+                [
                     'text' => 'Companies',
                     'route'  => 'company.index',
                 ],

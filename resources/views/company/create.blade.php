@@ -15,7 +15,7 @@
   {{ csrf_field() }}
     <div class="mb-3 mt-3">
       <label for="name">Name</label>
-      <input type="text" class="form-control" id="name" placeholder="Enter Name Hotel" name="name">
+      <input type="text" class="form-control" id="name" placeholder="Enter Name Company" name="name">
     </div>
     <div class="mb-3 mt-3">
       <label for="name">phone</label>

@@ -29,7 +29,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
-Route::prefix('')->middleware('auth')->group(function () {
+Route::prefix('')->middleware('auth')->middleware('status')->group(function () {
     Route::prefix('/hotel')->group(function () {
         Route::get('/view',[HotelController::class,'index'])->name('hotel.index');
         Route::get('/create',[HotelController::class,'create'])->name('hotel.create');
@@ -69,9 +69,6 @@ Route::prefix('')->middleware('auth')->group(function () {
         Route::get('/delete/{id}',[CompanyController::class,'destroy'])->name('company.delete');
         Route::post('/update/{id}',[CompanyController::class,'update'])->name('company.update');
         Route::get('/search',[CompanyController::class,'search'])->name('company.search');
-
-
-
     });
 
 Route::prefix('user')->group(function () {
@@ -100,6 +97,7 @@ Route::prefix('user')->group(function () {
     Route::prefix('booking')->group(function () {
         Route::get('/view',[BookingController::class,'index'])->name('booking.index');
         Route::get('/create',[BookingController::class,'create'])->name('booking.create');
+        Route::get('/create{id}',[BookingController::class,'createauto'])->name('booking.createa');
         Route::post('/add',[BookingController::class,'store'])->name('booking.store');
         Route::get('/edit/{id}',[BookingController::class,'edit'])->name('booking.edit');
         Route::get('/show/{id}',[BookingController::class,'show'])->name('booking.show');

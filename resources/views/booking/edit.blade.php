@@ -22,7 +22,7 @@
     <select class="form-select" id="sel1" name="hotel_id">
     <option display selected>{{$booking->hotel_id}}</option>
     @foreach($hotels as $hotel)
-      <option value='{{$hotel->id}}'>{{$hotel->id}}-{{$hotel->name}}</option>
+      <option value='{{$hotel->id}}'>{{$hotel->id}}-{{$hotel->name}}-</option>
       @endforeach
     </select>
     <label for="sel1" class="form-label">Select Customer (select one):</label>

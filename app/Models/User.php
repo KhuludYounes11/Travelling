@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'status',
     ];
 
     /**
@@ -44,6 +45,7 @@ class User extends Authenticatable
         'email'=>'string',
         'password'=>'string',
         'role' =>'integer',
+        'status' => 'integer',
 
     ];
 }

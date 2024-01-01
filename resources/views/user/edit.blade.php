@@ -26,13 +26,21 @@
       <label for="date">Email</label>
       <input type="text" class="form-control" id="text" placeholder="Enter Email" value='{{$user->email}}' name="email">
     </div>
-    <div class="mb-3 mt-3">
-      <label for="date">Role</label>
-      <input type="text" class="form-control" id="text" placeholder="Enter Role" value='{{$user->role}}' name="role">
-    </div>
-  
     @endforeach
- 
+    <div class="mb-3 mt-3">
+      <label for="role">Role</label>
+      <select class="form-select" id="role" name="role">
+        <option value='0'>User</option>
+        <option value='1'>Admin</option>
+      </select>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="status">Status</label>
+      <select class="form-select" id="status" name="status">
+      <option value='1'>Active</option>
+      <option value='0'>Stoped</option>
+      </select>
+    </div>
    <br>
     <button type="submit" class="btn btn-primary">Update</button>
   </form>
