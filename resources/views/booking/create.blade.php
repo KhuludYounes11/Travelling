@@ -15,7 +15,7 @@
   {{ csrf_field() }}
     <div class="mb-3 mt-3">
       <label for="date">Date</label>
-      <input type="text" class="form-control" id="text" placeholder="Enter Date" name="date">
+      <input type="date" class="form-control" id="text" placeholder="Enter Date" name="date">
     </div>
     <label for="sel1" class="form-label">Select Hotel (select one):</label>
     <select class="form-select" id="sel1" name="hotel_id">
@@ -36,7 +36,7 @@
     <option display selected>choose the ticket</option>
     @foreach($tickets as $ticket)
 
-      <option value='{{$ticket->id}}'>{{$ticket->id}}</option>
+      <option value='{{$ticket->id}}'>{{$ticket->id}}-{{$ticket->city->name}}-{{$ticket->company->name}}</option>
       @endforeach
     </select><br>
     <button type="submit" class="btn btn-primary">Save</button>

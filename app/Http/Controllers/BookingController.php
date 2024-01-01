@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+
 class BookingController extends Controller
 {
     /**
@@ -17,8 +18,8 @@ class BookingController extends Controller
      */
     public function index()
     {
-        $bookings= Booking::all();
-        return view('booking.index',['bookings'=>$bookings]);
+        $bookings = Booking::all();
+        return view('booking.index', ['bookings' => $bookings]);
     }
 
     /**
@@ -26,13 +27,20 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function createauto($id)
+    {
+        $hotels = Hotel::all();
+        $customers = Customer::where('id', $id)->get();
+        $tickets = Ticket::all();
+
+        return view('booking.create', ['hotels' => $hotels, 'customers' => $customers, 'tickets' => $tickets]);
+    }
     public function create()
     {
-        $hotels= Hotel::all(); 
-        $customers= Customer::all();
-        $tickets= Ticket::all();
-      
-        return view('booking.create',['hotels'=>$hotels,'customers'=>$customers,'tickets'=>$tickets]);
+        $hotels = Hotel::all();
+        $customers = Customer::all();
+        $tickets = Ticket::all();
+        return view('booking.create', ['hotels' => $hotels, 'customers' => $customers, 'tickets' => $tickets]);
     }
 
     /**
@@ -43,23 +51,26 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        $message=[
-            'ticket_id.exists'=>'ticket_id  not found',
-            'hotel_id.exists'=>'hotel_id not found ',
-            'customer_id.exists'=>'customer_id not found ',
+        $message = [
+            'ticket_id.exists' => 'ticket_id  not found',
+            'hotel_id.exists' => 'hotel_id not found ',
+            'customer_id.exists' => 'customer_id not found ',
         ];
-          $validator=Validator::make($request->all(),
-          [
-            'date' => 'required|date',
-            'ticket_id' =>'required|integer|exists:tickets,id',
-            'hotel_id' =>'required|integer|exists:hotels,id',
-            'customer_id' =>'required|integer|exists:customers,id'],$message);
-           if($validator->fails())
-           {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'date' => 'required|date',
+                'ticket_id' => 'required|integer|exists:tickets,id',
+                'hotel_id' => 'required|integer|exists:hotels,id',
+                'customer_id' => 'required|integer|exists:customers,id'
+            ],
+            $message
+        );
+        if ($validator->fails()) {
             return $validator->errors();
-           }
-           Booking::create($request->all());
-            return redirect()->route('booking.index');
+        }
+        Booking::create($request->all());
+        return redirect()->route('booking.index');
     }
 
     /**
@@ -70,15 +81,17 @@ class BookingController extends Controller
      */
     public function show($id)
     {
-        $message=['id.exists' => 'id not exists'];
-        $validator=Validator::make(['id' => $id],
-        ['id' => 'required|integer|exists:bookings,id'],$message);
-        if ($validator->fails())
-        {
+        $message = ['id.exists' => 'id not exists'];
+        $validator = Validator::make(
+            ['id' => $id],
+            ['id' => 'required|integer|exists:bookings,id'],
+            $message
+        );
+        if ($validator->fails()) {
             return $validator->errors();
         }
-        $booking=Booking::where('id',$id)->get();
-        return view('booking.show',['booking'=>$booking]);
+        $booking = Booking::where('id', $id)->get();
+        return view('booking.show', ['booking' => $booking]);
     }
 
     /**
@@ -89,18 +102,20 @@ class BookingController extends Controller
      */
     public function edit($id)
     {
-        $message=['id.exists' => 'id not exists'];
-        $validator=Validator::make(['id' => $id],
-        ['id' => 'required|integer|exists:bookings,id'],$message);
-        if ($validator->fails())
-        {
+        $message = ['id.exists' => 'id not exists'];
+        $validator = Validator::make(
+            ['id' => $id],
+            ['id' => 'required|integer|exists:bookings,id'],
+            $message
+        );
+        if ($validator->fails()) {
             return $validator->errors();
         }
-        $hotels= Hotel::all(); 
-        $customers= Customer::all();
-        $tickets= Ticket::all();
-        $booking=Booking::where('id',$id)->get();
-        return view('booking.edit',['booking'=>$booking,'hotels'=>$hotels,'customers'=>$customers,'tickets'=>$tickets]);
+        $hotels = Hotel::all();
+        $customers = Customer::all();
+        $tickets = Ticket::all();
+        $booking = Booking::where('id', $id)->get();
+        return view('booking.edit', ['booking' => $booking, 'hotels' => $hotels, 'customers' => $customers, 'tickets' => $tickets]);
     }
 
     /**
@@ -110,31 +125,34 @@ class BookingController extends Controller
      * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        $message=[
-            'ticket_id.exists'=>'ticket_id  not found',
-            'hotel_id.exists'=>'hotel_id not found ',
-            'customer_id.exists'=>'customer_id not found ',
+        $message = [
+            'ticket_id.exists' => 'ticket_id  not found',
+            'hotel_id.exists' => 'hotel_id not found ',
+            'customer_id.exists' => 'customer_id not found ',
         ];
-          $validator=Validator::make($request->all(),
-          [
-            'date' => 'required|date',
-            'ticket_id' =>'required|integer|exists:tickets,id',
-            'hotel_id' =>'required|integer|exists:hotels,id',
-            'customer_id' =>'required|integer|exists:customers,id'],$message);
-           if($validator->fails())
-           {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'date' => 'required|date',
+                'ticket_id' => 'required|integer|exists:tickets,id',
+                'hotel_id' => 'required|integer|exists:hotels,id',
+                'customer_id' => 'required|integer|exists:customers,id'
+            ],
+            $message
+        );
+        if ($validator->fails()) {
             return $validator->errors();
-           }
-           $data=[
+        }
+        $data = [
             'date' => $request->date,
             'hotel_id' => $request->hotel_id,
             'customer_id' => $request->customer_id,
             'ticket_id' => $request->ticket_id,
-           ];
-           Booking::where('id',$id)->update($data);
-           return redirect()->route('booking.index');
+        ];
+        Booking::where('id', $id)->update($data);
+        return redirect()->route('booking.index');
     }
 
     /**
@@ -145,31 +163,30 @@ class BookingController extends Controller
      */
     public function destroy($id)
     {
-        $message=['id.exists' => 'id not exists'];
-        $validator=Validator::make(['id' => $id],
-        ['id' => 'required|integer|exists:bookings,id'],$message);
-        if ($validator->fails())
-        {
+        $message = ['id.exists' => 'id not exists'];
+        $validator = Validator::make(
+            ['id' => $id],
+            ['id' => 'required|integer|exists:bookings,id'],
+            $message
+        );
+        if ($validator->fails()) {
             return $validator->errors();
         }
-        Booking::where('id',$id)->delete();
+        Booking::where('id', $id)->delete();
         return redirect()->back();
     }
     public function search(Request $request)
     {
-       $search=$request->search;
-       $bookings=Booking::where(function($query) use ($search)
-       {
-        $query->where('ticket_id','like',"%$search%");})
-        ->orwhereHas('customer',function($query) use ($search){
-            $query->where('name','like',"%$search%");
+        $search = $request->search;
+        $bookings = Booking::where(function ($query) use ($search) {
+            $query->where('ticket_id', 'like', "%$search%");
         })
-        ->orwhereHas('hotel',function($query) use ($search){
-            $query->where('name','like',"%$search%");
-        })->get();
-        return view('booking.index',['bookings'=>$bookings]);
-        
-       }
-
-    
+            ->orwhereHas('customer', function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%");
+            })
+            ->orwhereHas('hotel', function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%");
+            })->get();
+        return view('booking.index', ['bookings' => $bookings]);
     }
+}

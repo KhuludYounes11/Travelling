@@ -27,6 +27,7 @@
         <th>Action</th>
         <th>Action</th>
         <th>Action</th>
+        <th>Add Booking</th>
       </tr>
     </thead>
     @foreach($customers as $customer)
@@ -41,6 +42,7 @@
         <td> <a  href="{{route('customer.show',[$customer->id])}}" class="btn btn-danger">Show</a></td>
         <td> <a  href="{{route('customer.edit',[$customer->id])}}" class="btn btn-success">Edit</a></td>
         <td> <a  href="{{route('customer.delete',[$customer->id])}}" class="btn btn-secondary">Delete</a></td>
+        <td> <a  href="{{route('booking.createa',[$customer->id])}}" class="btn btn-primary">Add Booking</a></td>
       </tr>
      
     </tbody>
