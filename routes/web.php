@@ -29,7 +29,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
-Route::prefix('')->middleware('auth')->group(function () {
+Route::prefix('')->middleware('auth')->middleware('status')->group(function () {
     Route::prefix('/hotel')->group(function () {
         Route::get('/view',[HotelController::class,'index'])->name('hotel.index');
         Route::get('/create',[HotelController::class,'create'])->name('hotel.create');

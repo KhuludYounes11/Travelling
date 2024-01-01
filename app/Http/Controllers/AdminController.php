@@ -80,13 +80,13 @@ class AdminController extends Controller
      public function update(Request $request ,$id)
      { 
          $user =User::find($id);
- 
          $validator=Validator::make($request->all(),
            [
              'name' => 'required|alpha',
              'password' => 'required|string|min:7',
              'email' => ['required',Rule::unique('users','email')->ignore($user->email,'email'),'email'],
-             'role'=>'integer|min:0|max:1']);
+             'role'=>'integer|min:0|max:1',
+            'status' => 'integer|min:0|max:1']);
             if($validator->fails())
             {
              return $validator->errors();
@@ -95,7 +95,9 @@ class AdminController extends Controller
          'name'=> $request->name,
          'password' => $request->password,
          'email' =>$request->email ,
-         'role'=>$request->role];
+         'role'=> $request->role,
+         'status'=> $request->status,
+        ];
           $user->update($data);
           return redirect()->route('user.index');
      }
