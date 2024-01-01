@@ -8,8 +8,10 @@
 
 @section('content')
     <p>Welcome to Fly Zone & Travel company</p>
-        <td> <a  href="{{ route('customer.index')}}" class="btn btn-secondary">Add New Bookig</a></td>
-        <center></center>
+    <center>
+        <td> <a  href="{{ route('customer.index')}}" class="btn btn-success">Add New Bookig</a></td>
+    </center>
+
 @stop
 
 @section('css')
