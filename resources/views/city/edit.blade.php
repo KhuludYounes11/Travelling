@@ -1,3 +1,9 @@
+@extends('adminlte::page')
+@section('title', 'City')
+
+@section('content_header')
+    <h1> Update City</h1>
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +16,6 @@
 <body>
 
 <div class="container mt-3">
-  <h2>City</h2>
   <form action="{{ route('city.update',['id'=>$city->id]) }}" method="post">
   {{ csrf_field() }}
     <div class="mb-3 mt-3">
@@ -29,3 +34,11 @@
 </div>
 </body>
 </html>
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
+@stop
+@stop
+@stop

@@ -28,8 +28,15 @@ Route::get('/', function () {
 });
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
-Route::prefix('')->middleware('auth')->middleware('status')->group(function () {
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::prefix('')->middleware('auth','status')->group(function () {
+    Route::prefix('admin')->middleware('isadmin')->group(function () {
+        Route::get('/view',[AdminController::class,'index'])->name('user.index');
+        Route::get('/edit/{id}',[AdminController::class,'edit'])->name('admin.edit');
+        Route::post('/update/{id}',[AdminController::class,'update'])->name('admin.update');
+        Route::get('/delete/{id}',[AdminController::class,'destroy'])->name('admin.delete');
+        Route::get('/search',[AdminController::class,'search'])->name('admin.search');
+         });
     Route::prefix('/hotel')->group(function () {
         Route::get('/view',[HotelController::class,'index'])->name('hotel.index');
         Route::get('/create',[HotelController::class,'create'])->name('hotel.create');

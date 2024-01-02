@@ -1,3 +1,9 @@
+@extends('adminlte::page')
+@section('title', 'Ticket')
+
+@section('content_header')
+    <h1>Show Ticket </h1>
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +16,6 @@
 <body>
 
 <div class="container mt-3">
-  <h2>Show Ticket </h2>
   <ul class="list-group">
   <li class="list-group-item">With a : {{$ticket->company->name}}</li>
   <li class="list-group-item">This ticket to : {{$ticket->city->name}}</li>
@@ -18,3 +23,11 @@
   <li class="list-group-item">Date End is : {{$ticket->date_e}}</li>
 </ul>
 <h3> <a href="{{route('ticket.index')}}"class=" btn btn-secondary">Back</a></h3></div>
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
+@stop
+@stop
+@stop

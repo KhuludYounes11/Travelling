@@ -1,3 +1,9 @@
+@extends('adminlte::page')
+@section('title', 'Rating')
+
+@section('content_header')
+    <h1>Show Rating  </h1>
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +17,6 @@
 
 <div class="container mt-3">
 @foreach($rating as $rating)
-  <h2>Show Rating {{$rating->id}} </h2>
   <ul class="list-group">
   <li class="list-group-item">CustomerId is : {{$rating->customer_id}}</li>
   <li class="list-group-item">Star is : {{$rating->star}}</li>
@@ -20,3 +25,11 @@
   @endforeach
 </ul>
 <h3> <a href="{{route('rating.index')}}"class=" btn btn-secondary">Back</a></h3></div>
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
+@stop
+@stop
+@stop

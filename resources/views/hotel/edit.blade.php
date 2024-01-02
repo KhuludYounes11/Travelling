@@ -1,3 +1,9 @@
+@extends('adminlte::page')
+@section('title', 'Hotel')
+
+@section('content_header')
+    <h1> Create Hotel </h1>
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +14,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-
 <div class="container mt-3">
-  <h2>Hotel</h2>
   <form action="{{ route('hotel.update', ['id'=>$hotel->id]) }}" method="post">
   {{ csrf_field() }}
     <div class="mb-3 mt-3">
@@ -36,3 +40,11 @@
 </div>
 </body>
 </html>
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
+@stop
+@stop
+@stop

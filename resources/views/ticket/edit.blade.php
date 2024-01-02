@@ -1,3 +1,9 @@
+@extends('adminlte::page')
+@section('title', 'Ticket')
+
+@section('content_header')
+    <h1>Edit Ticket </h1>
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +16,6 @@
 <body>
 
 <div class="container mt-3">
-  <h2>Ticket</h2>
   <form action="{{ route('ticket.store') }}" method="post">
   {{ csrf_field() }}
   <label for="company_id" class="form-label">Select Company (select one):</label>
@@ -43,3 +48,11 @@
 </div>
 </body>
 </html>
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
+@stop
+@stop
+@stop

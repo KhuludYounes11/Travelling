@@ -1,3 +1,9 @@
+@extends('adminlte::page')
+@section('title', 'Rating')
+
+@section('content_header')
+    <h1>Ratings </h1>
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +16,6 @@
 <body>
 
 <div class="container mt-3">
-  <h2>Ratings</h2>
   <form class="form-inline my-2 my-lg-0" method='get' action="{{route('rating.search')}}">
   <input class="form-control" id="myInput" type="text" name="search" placeholder="Search..">
   <button class="btn btn primary" type='submit' >Search</button>
@@ -51,3 +56,11 @@
 
 </body>
 </html>
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
+@stop
+@stop
+@stop

@@ -1,3 +1,9 @@
+@extends('adminlte::page')
+@section('title', 'Hotel')
+
+@section('content_header')
+    <h1> Hotels </h1>
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,9 +14,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-
 <div class="container mt-3">
-  <h2>Hotels</h2>
   <div class="mb-3 mt-3">
     {{ csrf_field() }}
   <form class="form-inline my-2 my-lg-0" method='get' action="{{route('hotel.search')}}">
@@ -52,3 +56,11 @@
 
 </body>
 </html>
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
+@stop
+@stop
+@stop

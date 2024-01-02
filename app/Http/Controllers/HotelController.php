@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\City;
@@ -78,7 +77,10 @@ class HotelController extends Controller
             return $validator->errors();
         } else {
             $hotel = Hotel::find($id);
-            return view('hotel/show', ['hotel' => $hotel]);
+            foreach($hotel->ratings as $rating)
+             $average=(int)$rating->avg('star');
+       
+            return view('hotel/show', ['hotel' => $hotel,'average'=>$average]);
         }
     }
 
