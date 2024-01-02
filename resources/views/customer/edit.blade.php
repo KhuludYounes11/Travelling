@@ -1,3 +1,9 @@
+@extends('adminlte::page')
+@section('title', 'Customer')
+
+@section('content_header')
+    <h1> Edit Customer </h1>
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +16,6 @@
 <body>
 
 <div class="container mt-3">
-  <h2>Stacked form</h2>
   @foreach($customer as $customer)
   <form action=" {{route('customer.update',$customer->id)}}" method="post">
   {{ csrf_field() }}
@@ -37,10 +42,16 @@
     <button type="submit" class="btn btn-primary">Update</button>
   </form>
 </div>
-
 </body>
 </html>
-
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
+@stop
+@stop
+@stop
       
         
 

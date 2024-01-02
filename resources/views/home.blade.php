@@ -9,7 +9,7 @@
 @section('content')
     <p>Welcome to Fly Zone & Travel company</p>
     <center>
-        <td> <a  href="{{ route('customer.index')}}" class="btn btn-success">Add New Bookig</a></td>
+        <td> <a  href="{{ route('customer.index')}}" class="btn btn-success">Add New Booking</a></td>
     </center>
 
 @stop

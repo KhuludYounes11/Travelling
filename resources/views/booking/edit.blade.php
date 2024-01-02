@@ -1,3 +1,10 @@
+@extends('adminlte::page')
+
+@section('title', 'Bookings')
+
+@section('content_header')
+    <h1>Show Booking </h1>
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +17,6 @@
 <body>
 
 <div class="container mt-3">
-  <h2>Stacked form</h2>
   @foreach($booking as $booking)
   <form action=" {{route('booking.update',$booking->id)}}" method="post">
   {{ csrf_field() }}
@@ -43,10 +49,18 @@
     <button type="submit" class="btn btn-primary">Update</button>
   </form>
 </div>
-
 </body>
 </html>
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
 
+
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
+@stop
+@stop
+@stop
       
         
 

@@ -1,3 +1,10 @@
+@extends('adminlte::page')
+
+@section('title', 'Bookings')
+
+@section('content_header')
+    <h1>Show Booking </h1>
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,3 +27,13 @@
   @endforeach
 </ul>
 <h3> <a href="{{route('booking.index')}}"class=" btn btn-secondary">Back</a></h3></div>
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+
+
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
+@stop
+@stop
+@stop

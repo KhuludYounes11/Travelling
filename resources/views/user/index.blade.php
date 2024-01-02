@@ -1,3 +1,9 @@
+@extends('adminlte::page')
+@section('title', 'User')
+
+@section('content_header')
+    <h1>Users </h1>
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +16,6 @@
 <body>
 
 <div class="container mt-3">
-  <h2>Users</h2> 
   <form class="form-inline my-2 my-lg-0" method='get' action="{{route('admin.search')}}">
   <input class="form-control" id="myInput" type="text" name="search" placeholder="Search..">
   <button class="btn btn primary" type='submit' >Search</button>
@@ -23,6 +28,7 @@
         <th>Password</th>
         <th>Email</th>
         <th>Role</th>
+        <th>Status</th>
         <th>Action</th>
         <th>Action</th>
    
@@ -37,6 +43,7 @@
         <td>{{$user->password}}</td>
         <td>{{$user->email}}</td>
         <td>{{$user->role}}</td>
+        <td>{{$user->status}}</td>
         <td> <a  href="{{route('admin.edit',[$user->id])}}" class="btn btn-success">Edit</a></td>
         <td> <a  href="{{route('admin.delete',[$user->id])}}" class="btn btn-secondary">Delete</a></td>
       </tr>
@@ -49,3 +56,11 @@
 
 </body>
 </html>
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
+@stop
+@stop
+@stop
