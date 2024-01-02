@@ -101,6 +101,7 @@ Route::prefix('user')->group(function () {
         Route::post('/add',[BookingController::class,'store'])->name('booking.store');
         Route::get('/edit/{id}',[BookingController::class,'edit'])->name('booking.edit');
         Route::get('/show/{id}',[BookingController::class,'show'])->name('booking.show');
+        Route::get('/print/{id}',[BookingController::class,'printpdf'])->name('booking.print');
         Route::get('/delete/{id}',[BookingController::class,'destroy'])->name('booking.delete');
         Route::post('/update/{id}',[BookingController::class,'update'])->name('booking.update');
         Route::get('/search',[BookingController::class,'search'])->name('booking.search');

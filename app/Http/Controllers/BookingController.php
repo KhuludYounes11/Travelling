@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Mpdf\Mpdf;
 
 class BookingController extends Controller
 {
@@ -188,5 +189,22 @@ class BookingController extends Controller
                 $query->where('name', 'like', "%$search%");
             })->get();
         return view('booking.index', ['bookings' => $bookings]);
+    }
+    public function printbdf($id)
+    {
+        $booking = Booking::find($id);
+        $name = $booking->customer->name;
+        $mpdf = new Mpdf(['orientation' => 'L']);
+        $pdf = '
+        <h1>Fly Zone & Travel</h1>
+        <ul class="list-group">
+        <li class="list-group-item">Customer Name is : ' . $booking->customer->name . '</li>
+        <li class="list-group-item">Ticket To : ' . $booking->ticket->city->name . '</li>
+        <li class="list-group-item">Ticket With Company : ' . $booking->ticket->company->name . '</li>
+        <li class="list-group-item">Hotel is : ' . $booking->hotel->name . '</li>
+        <li class="list-group-item">Date is : ' . $booking->date . '</li>
+        </ul>';
+        $mpdf->WriteHTML($pdf);
+        $mpdf->Output("$name.pdf", "D");
     }
 }
