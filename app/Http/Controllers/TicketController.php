@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\Ticket;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -41,7 +42,7 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        /* dd($request->all()); */
+        
         $message = [
             'city_id.exists' => 'city_id  not found',
             'country_id.exists' => 'country_id  not found'
@@ -49,8 +50,8 @@ class TicketController extends Controller
         $validate = Validator::make($request->all(), [
             'company_id' => 'required|exists:companies,id|integer',
             'city_id' => 'required|exists:cities,id|integer',
-            'date_e' => 'required|date',
-            'date_s' => 'required|date',
+            'date_e' => 'required|date|after:date_s',
+            'date_s' => 'required|date|after:yesterday',
         ], $message);
         if ($validate->fails()) {
             return ($validate->errors());

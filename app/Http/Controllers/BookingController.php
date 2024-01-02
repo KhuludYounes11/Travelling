@@ -52,6 +52,8 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
+
+        $tickets=Ticket::find($request->ticket_id);
         $message = [
             'ticket_id.exists' => 'ticket_id  not found',
             'hotel_id.exists' => 'hotel_id not found ',
@@ -60,7 +62,7 @@ class BookingController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'date' => 'required|date',
+                'date' => "required|date|after:$tickets->date_s|before:$tickets->date_e",
                 'ticket_id' => 'required|integer|exists:tickets,id',
                 'hotel_id' => 'required|integer|exists:hotels,id',
                 'customer_id' => 'required|integer|exists:customers,id'
