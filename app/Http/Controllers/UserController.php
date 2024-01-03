@@ -65,7 +65,7 @@ class UserController extends Controller
         'password' => Hash::make($request->password),
        'email' =>$request->email ];
        
-        User::where('id',$id)->update($data);
+        $user->update($data);
          return redirect()->route('home');
     }
   

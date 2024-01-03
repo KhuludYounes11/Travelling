@@ -1,3 +1,9 @@
+@extends('adminlte::page')
+@section('title', 'Customer')
+
+@section('content_header')
+    <h1> Create Customer </h1>
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,10 +43,16 @@
     <h3> <a href="{{route('customer.index')}}"class=" btn btn-secondary">Back</a></h3>
   </form>
 </div>
-
 </body>
 </html>
-
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
+@stop
+@stop
+@stop
       
         
 

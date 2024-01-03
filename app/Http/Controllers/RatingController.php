@@ -29,7 +29,7 @@ class RatingController extends Controller
     {
         $hotels= Hotel::all(); 
         $customers= Customer::all();
-        return view('rating.create',['hotels'=>$hotels],['customers'=>$customers]);
+        return view('rating.create',['hotels'=>$hotels,'customers'=>$customers]);
     }
 
     /**
@@ -97,7 +97,7 @@ class RatingController extends Controller
         $hotels= Hotel::all(); 
         $customers= Customer::all();
         $rating=Rating::where('id',$id)->get();
-        return view('rating.edit',['rating'=>$rating],['hotels'=>$hotels],['customers'=>$customers]);
+        return view('rating.edit',['rating'=>$rating,'hotels'=>$hotels,'customers'=>$customers]);
     }
 
     /**
@@ -125,7 +125,7 @@ class RatingController extends Controller
             return $validator->errors();
            }
            $data=[
-            'comment' =>$request->name,
+            'comment' =>$request->comment,
             'star' =>$request->star,
             'hotel_id' => $request->hotel_id,
             'customer_id' => $request->customer_id,

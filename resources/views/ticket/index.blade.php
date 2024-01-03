@@ -1,3 +1,9 @@
+@extends('adminlte::page')
+@section('title', 'Ticket')
+
+@section('content_header')
+    <h1>Tickets</h1>
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +16,6 @@
 <body>
 
 <div class="container mt-3">
-  <h2>Tickets</h2>
   {{ csrf_field() }}
   <div class="mb-3 mt-3">
     <form class="form-inline my-2 my-lg-0" method='get' action="{{route('ticket.search')}}">
@@ -54,3 +59,11 @@
 
 </body>
 </html>
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
+@stop
+@stop
+@stop
