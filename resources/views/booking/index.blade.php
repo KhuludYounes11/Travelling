@@ -32,6 +32,7 @@
         <th>Action</th>
         <th>Action</th>
         <th>Action</th>
+        <th>Action</th>
       </tr>
     </thead>
     @foreach($bookings as $booking)
@@ -43,6 +44,7 @@
         <td>{{$booking->hotel->name}}</td>
         <td>{{$booking->ticket_id}}</td>
         <td>{{$booking->date}}</td>
+        <td><a href="{{ route('booking.print', [$booking->id]) }}" class="btn btn-primary">Print</a></td>
         <td> <a  href="{{route('booking.show',[$booking->id])}}" class="btn btn-danger">Show</a></td>
         <td> <a  href="{{route('booking.edit',[$booking->id])}}" class="btn btn-success">Edit</a></td>
         <td> <a  href="{{route('booking.delete',[$booking->id])}}" class="btn btn-secondary">Delete</a></td>

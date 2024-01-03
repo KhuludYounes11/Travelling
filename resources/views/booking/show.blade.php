@@ -17,16 +17,20 @@
 <body>
 
 <div class="container mt-3">
-@foreach($booking as $booking)
+  @foreach($booking as $booking)
   <h2>Show Booking {{$booking->id}} </h2>
   <ul class="list-group">
-  <li class="list-group-item">CustomerId is : {{$booking->customer_id}}</li>
-  <li class="list-group-item">TicketId is : {{$booking->ticket_id}}</li>
-  <li class="list-group-item">HotelId is : {{$booking->hotel_id}}</li>
+  <li class="list-group-item">Customer Name is : {{$booking->customer->name}}</li>
+  <li class="list-group-item">Ticket To : {{$booking->ticket->city->name}}</li>
+  <li class="list-group-item">Ticket With Company : {{ $booking->ticket->company->name }}</li>
+  <li class="list-group-item">Hotel is : {{$booking->hotel->name}}</li>
   <li class="list-group-item">Date is : {{$booking->date}}</li>
   @endforeach
 </ul>
+
+</ul>
 <h3> <a href="{{route('booking.index')}}"class=" btn btn-secondary">Back</a></h3></div>
+
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
 
@@ -37,3 +41,4 @@
 @stop
 @stop
 @stop
+
